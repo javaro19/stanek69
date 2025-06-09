@@ -70,7 +70,7 @@ public class HelloApplication extends Application {
 
         Scene scene = new Scene(root, 1200, 800);
         scene.setFill(Color.TRANSPARENT);
-        primaryStage.setTitle("ULTIMATE SA OPTIMIZER");
+        primaryStage.setTitle("ULTIMATE OPTIMIZER");
         primaryStage.setScene(scene);
         primaryStage.initStyle(javafx.stage.StageStyle.TRANSPARENT);
         primaryStage.setMaximized(true);
@@ -90,9 +90,9 @@ public class HelloApplication extends Application {
     }
 
     private void initializeCredentials() {
-        userCredentials.put("admin", "password123");
-        userCredentials.put("user1", "pass1");
-        userCredentials.put("user2", "securepass2");
+        userCredentials.put("admin", "haslo123");
+        userCredentials.put("user1", "haslo1");
+        userCredentials.put("user2", "haslo2");
     }
 
     private VBox createLoginPage() {
@@ -110,11 +110,11 @@ public class HelloApplication extends Application {
         loginBox.setPadding(new Insets(50, 40, 60, 40));
         loginBox.setEffect(new DropShadow(30, Color.rgb(0, 0, 0, 0.5)));
 
-        Text loginTitle = new Text("LOGIN");
+        Text loginTitle = new Text("LOGOWANIE");
         loginTitle.setFill(Color.WHITE);
         loginTitle.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 
-        Text subtitle = new Text("ULTIMATE SA OPTIMIZER");
+        Text subtitle = new Text("ULTIMATE OPTIMIZER");
         LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
                 new Stop(0, Color.web("#8a2be2")),
                 new Stop(0.5, Color.web("#9370db")),
@@ -129,14 +129,14 @@ public class HelloApplication extends Application {
         fieldsBox.setPadding(new Insets(20, 0, 20, 0));
 
         TextField usernameField = new TextField();
-        usernameField.setPromptText("Username");
+        usernameField.setPromptText("Nazwa użytkownika");
         styleTextField(usernameField);
 
         PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Password");
+        passwordField.setPromptText("Hasło");
         styleTextField(passwordField);
 
-        Button loginButton = new Button("LOGIN");
+        Button loginButton = new Button("ZALOGUJ");
         loginButton.setStyle("-fx-background-color: linear-gradient(to right, #8a2be2, #9370db); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 40; -fx-font-size: 16;");
         loginButton.setEffect(new DropShadow(10, Color.rgb(138, 43, 226, 0.5)));
 
@@ -153,7 +153,7 @@ public class HelloApplication extends Application {
                 errorLabel.setText("");
                 initializeMainApplication();
             } else {
-                errorLabel.setText("Invalid username or password");
+                errorLabel.setText("Nieprawidłowa nazwa użytkownika lub hasło");
                 shakeAnimation(loginBox);
             }
         });
@@ -327,7 +327,7 @@ public class HelloApplication extends Application {
         titleBox.setAlignment(Pos.CENTER_LEFT);
         titleBox.setSpacing(15);
 
-        Text title = new Text("ULTIMATE SA OPTIMIZER");
+        Text title = new Text("ULTIMATE OPTIMIZER");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 22));
 
         LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
@@ -416,22 +416,22 @@ public class HelloApplication extends Application {
         VBox navMenu = new VBox();
         navMenu.setSpacing(8);
 
-        Button dashboardBtn = createNavButton("Dashboard");
+        Button dashboardBtn = createNavButton("Pulpit");
         dashboardBtn.setOnAction(e -> showPage(dashboardPage));
 
-        Button cleanerBtn = createNavButton("System Cleaner");
+        Button cleanerBtn = createNavButton("Czyszczenie");
         cleanerBtn.setOnAction(e -> showPage(cleanerPage));
 
-        Button optimizerBtn = createNavButton("Optimizer");
+        Button optimizerBtn = createNavButton("Optymalizacja");
         optimizerBtn.setOnAction(e -> showPage(optimizerPage));
 
         Button windowsBtn = createNavButton("Windows");
         windowsBtn.setOnAction(e -> showPage(windowsPage));
 
-        Button settingsBtn = createNavButton("Settings");
+        Button settingsBtn = createNavButton("Ustawienia");
         settingsBtn.setOnAction(e -> showPage(settingsPage));
 
-        Button aboutBtn = createNavButton("About");
+        Button aboutBtn = createNavButton("O programie");
         aboutBtn.setOnAction(e -> showPage(aboutPage));
 
         navMenu.getChildren().addAll(dashboardBtn, cleanerBtn, optimizerBtn, windowsBtn, settingsBtn, aboutBtn);
@@ -440,7 +440,7 @@ public class HelloApplication extends Application {
         sidebarFooter.setPadding(new Insets(25, 0, 0, 0));
         sidebarFooter.setStyle("-fx-border-color: rgba(61, 61, 61, 0.3); -fx-border-width: 1 0 0 0;");
 
-        Button logoutBtn = createNavButton("Logout");
+        Button logoutBtn = createNavButton("Wyloguj");
         logoutBtn.setStyle("-fx-background-color: rgba(138, 43, 226, 0.2); -fx-text-fill: white; -fx-font-size: 14; -fx-alignment: center-left; -fx-padding: 12 20;");
         logoutBtn.setOnAction(e -> logout());
 
@@ -498,12 +498,12 @@ public class HelloApplication extends Application {
         dashboard.setAlignment(Pos.CENTER);
         dashboard.setStyle("-fx-background-color: transparent;");
 
-        Text welcomeText = new Text("HELLO " + currentUser.toUpperCase() + "!");
+        Text welcomeText = new Text("WITAJ " + currentUser.toUpperCase() + "!");
         welcomeText.setFill(Color.WHITE);
         welcomeText.setFont(Font.font("Arial", FontWeight.BOLD, 36));
         welcomeText.setEffect(new DropShadow(10, Color.rgb(138, 43, 226, 0.7)));
 
-        Text appTitle = new Text("ULTIMATE SA OPTIMIZER");
+        Text appTitle = new Text("ULTIMATE OPTIMIZER");
         LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
                 new Stop(0, Color.web("#8a2be2")),
                 new Stop(0.5, Color.web("#9370db")),
@@ -513,11 +513,11 @@ public class HelloApplication extends Application {
         appTitle.setFont(Font.font("Arial", FontWeight.BOLD, 48));
         appTitle.setEffect(new Glow(0.8));
 
-        Text versionText = new Text("Version 2.5.0 PRO");
+        Text versionText = new Text("Wersja 2.5.0 PRO");
         versionText.setFill(Color.WHITE);
         versionText.setFont(Font.font("Arial", 20));
 
-        Button quickCleanBtn = new Button("START CLEANING");
+        Button quickCleanBtn = new Button("ROZPOCZNIJ CZYSZCZENIE");
         quickCleanBtn.setStyle("-fx-background-color: linear-gradient(to right, #8a2be2, #9370db); -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 24; -fx-padding: 20 50; -fx-background-radius: 15;");
         quickCleanBtn.setEffect(new DropShadow(20, Color.rgb(138, 43, 226, 0.5)));
         quickCleanBtn.setOnAction(e -> showPage(cleanerPage));
@@ -558,11 +558,11 @@ public class HelloApplication extends Application {
         Text cleanerIcon = new Text("");
         cleanerIcon.setFont(Font.font(30));
 
-        Text pageTitle = new Text("System Cleaner PRO");
+        Text pageTitle = new Text("Systemowy Czyszczak PRO");
         pageTitle.setFill(Color.LIME);
         pageTitle.setFont(Font.font("Consolas", FontWeight.BOLD, 26));
 
-        Button scanBtn = new Button("SCAN SYSTEM");
+        Button scanBtn = new Button("SKANUJ SYSTEM");
         scanBtn.setStyle("-fx-background-color: #2E8B57; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 25;");
 
         Text scanIcon = new Text("");
@@ -580,7 +580,7 @@ public class HelloApplication extends Application {
         HBox buttonBox = new HBox(15);
         buttonBox.setAlignment(Pos.CENTER_RIGHT);
 
-        Button cleanBtn = new Button("CLEAN");
+        Button cleanBtn = new Button("WYCZYŚĆ");
         cleanBtn.setStyle("-fx-background-color: #8a2be2; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 25;");
 
         buttonBox.getChildren().add(cleanBtn);
@@ -605,7 +605,7 @@ public class HelloApplication extends Application {
         consoleOutput.appendText("--------------------------------------------------\n\n");
 
         try {
-            consoleOutput.appendText("> Scanning temporary files in %TEMP%...\n");
+            consoleOutput.appendText("> Skanowanie plików tymczasowych w %TEMP%...\n");
             java.nio.file.Path tempPath = Paths.get(System.getenv("TEMP"));
             long tempSize = 0;
             long tempCount = 0;
@@ -617,15 +617,15 @@ public class HelloApplication extends Application {
                             tempSize += Files.size(file);
                             tempCount++;
                         } catch (IOException e) {
-                            consoleOutput.appendText("    Could not access: " + file.getFileName() + "\n");
+                            consoleOutput.appendText("    Brak dostępu do: " + file.getFileName() + "\n");
                         }
                     }
                 }
             }
-            consoleOutput.appendText(String.format("  Found %d temp files (%.2f MB)\n",
+            consoleOutput.appendText(String.format("  Znaleziono %d plików tymczasowych (%.2f MB)\n",
                     tempCount, tempSize / (1024.0 * 1024.0)));
 
-            consoleOutput.appendText("> Checking recycle bin...\n");
+            consoleOutput.appendText("> Sprawdzanie kosza...\n");
             try {
                 long recycleBinSize = 0;
                 long recycleBinCount = 0;
@@ -636,14 +636,14 @@ public class HelloApplication extends Application {
                         recycleBinCount += countFilesInRecycleBin(recycleBin, consoleOutput);
                     }
                 }
-                consoleOutput.appendText(String.format("  Found %d items in recycle bin\n", recycleBinCount));
+                consoleOutput.appendText(String.format("  Znaleziono %d elementów w koszu\n", recycleBinCount));
             } catch (Exception e) {
-                consoleOutput.appendText("  Could not fully scan recycle bin: " + e.getMessage() + "\n");
+                consoleOutput.appendText("  Nie można zeskanować kosza: " + e.getMessage() + "\n");
             }
 
-            consoleOutput.appendText("\nSCAN COMPLETE: Found junk files\n");
+            consoleOutput.appendText("\nSKANOWANIE ZAKOŃCZONE: Znaleziono pliki do usunięcia\n");
         } catch (Exception e) {
-            consoleOutput.appendText("Error during scan: " + e.getMessage() + "\n");
+            consoleOutput.appendText("Błąd podczas skanowania: " + e.getMessage() + "\n");
         }
     }
 
@@ -656,7 +656,7 @@ public class HelloApplication extends Application {
                     try {
                         count += countFilesInRecycleBin(file, consoleOutput);
                     } catch (Exception e) {
-                        consoleOutput.appendText("    Could not access: " + file.getPath() + "\n");
+                        consoleOutput.appendText("    Brak dostępu do: " + file.getPath() + "\n");
                     }
                 } else if (file.isFile()) {
                     count++;
@@ -684,36 +684,36 @@ public class HelloApplication extends Application {
 
         List<KeyFrame> keyFrames = new ArrayList<>();
         keyFrames.add(new KeyFrame(Duration.seconds(0.5),
-                e -> consoleOutput.appendText("> Scanning temporary files in %TEMP%...\n"),
+                e -> consoleOutput.appendText("> Skanowanie plików tymczasowych w %TEMP%...\n"),
                 new KeyValue(cleanupProgressBar.progressProperty(), 0.1)
         ));
         keyFrames.add(new KeyFrame(Duration.seconds(1),
-                e -> consoleOutput.appendText("> Found suspicious files... Initiating deep clean...\nJavarek :D\n"),
+                e -> consoleOutput.appendText("> Znaleziono podejrzane pliki... Rozpoczynanie głębokiego czyszczenia...\n"),
                 new KeyValue(cleanupProgressBar.progressProperty(), 0.3)
         ));
         keyFrames.add(new KeyFrame(Duration.seconds(1.5),
-                e -> consoleOutput.appendText("> Deleting cache and residuals...\n"),
+                e -> consoleOutput.appendText("> Usuwanie cache i pozostałości...\n"),
                 new KeyValue(cleanupProgressBar.progressProperty(), 0.5)
         ));
         keyFrames.add(new KeyFrame(Duration.seconds(2),
-                e -> consoleOutput.appendText("> Accessing recycle bin...\n"),
+                e -> consoleOutput.appendText("> Dostęp do kosza...\n"),
                 new KeyValue(cleanupProgressBar.progressProperty(), 0.65)
         ));
         keyFrames.add(new KeyFrame(Duration.seconds(2.5),
-                e -> consoleOutput.appendText("> Clearing hidden storage...\n"),
+                e -> consoleOutput.appendText("> Czyszczenie ukrytej pamięci...\n"),
                 new KeyValue(cleanupProgressBar.progressProperty(), 0.8)
         ));
         keyFrames.add(new KeyFrame(Duration.seconds(3),
-                e -> consoleOutput.appendText("> Removing traces of malware...\n"),
+                e -> consoleOutput.appendText("> Usuwanie śladów malware...\n"),
                 new KeyValue(cleanupProgressBar.progressProperty(), 0.9)
         ));
         keyFrames.add(new KeyFrame(Duration.seconds(3.5),
-                e -> consoleOutput.appendText("> Finalizing cleanup...\n"),
+                e -> consoleOutput.appendText("> Finalizowanie czyszczenia...\n"),
                 new KeyValue(cleanupProgressBar.progressProperty(), 1.0)
         ));
         keyFrames.add(new KeyFrame(Duration.seconds(4),
                 e -> {
-                    consoleOutput.appendText("> Complete: system optimized, security strengthened.\n");
+                    consoleOutput.appendText("> Zakończono: system zoptymalizowany, bezpieczeństwo wzmocnione.\n");
                     parentBox.getChildren().remove(cleanupProgressBar);
                 }
         ));
@@ -745,12 +745,12 @@ public class HelloApplication extends Application {
                 } else {
                     try {
                         if (file.delete()) {
-                            consoleOutput.appendText("    Deleted: " + file.getName() + "\n");
+                            consoleOutput.appendText("    Usunięto: " + file.getName() + "\n");
                         } else {
-                            consoleOutput.appendText("    Could not delete: " + file.getName() + "\n");
+                            consoleOutput.appendText("    Nie można usunąć: " + file.getName() + "\n");
                         }
                     } catch (SecurityException e) {
-                        consoleOutput.appendText("    No permission to delete: " + file.getName() + "\n");
+                        consoleOutput.appendText("    Brak uprawnień do usunięcia: " + file.getName() + "\n");
                     }
                 }
             }
@@ -769,11 +769,11 @@ public class HelloApplication extends Application {
         Text optimizerIcon = new Text("");
         optimizerIcon.setFont(Font.font(30));
 
-        Text pageTitle = new Text("System Optimizer");
+        Text pageTitle = new Text("Optymalizacja Systemu");
         pageTitle.setFill(Color.WHITE);
         pageTitle.setFont(Font.font("Arial", FontWeight.BOLD, 26));
 
-        Button optimizeBtn = new Button("RUN OPTIMIZER");
+        Button optimizeBtn = new Button("URUCHOM OPTYMALIZACJĘ");
         optimizeBtn.setStyle("-fx-background-color: linear-gradient(to right, #8a2be2, #9370db); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 25;");
         optimizeBtn.setOnAction(e -> showOptimizationProgress());
 
@@ -787,26 +787,26 @@ public class HelloApplication extends Application {
         toolsPane.setPrefColumns(2);
 
         List<Tool> tools = new ArrayList<>();
-        tools.add(new Tool("StoreX Language Changer", "Change system language settings"));
-        tools.add(new Tool("PC Analyzer Tool", "Analyze your system performance"));
-        tools.add(new Tool("Network Optimizer", "Optimize your network settings"));
-        tools.add(new Tool("Driver Updater", "Update outdated drivers"));
-        tools.add(new Tool("Privacy Shield", "Enhance your privacy settings"));
-        tools.add(new Tool("Online Time Synchronization", "Sync your system time"));
-        tools.add(new Tool("RAID", "Manage RAID configurations"));
-        tools.add(new Tool("File Shredder", "Securely delete files"));
-        tools.add(new Tool("Startup Manager", "Manage startup programs"));
-        tools.add(new Tool("Temp File Cleaner", "Clean temporary files"));
-        tools.add(new Tool("Clipboard Manager", "Manage clipboard history"));
-        tools.add(new Tool("VPN Quick Connect", "Connect to VPN quickly"));
-        tools.add(new Tool("System Restore Point Creator", "Create restore points"));
-        tools.add(new Tool("Disable System Restore", "Disable system restore"));
-        tools.add(new Tool("Disable NTFS Timestamp", "Optimize NTFS performance"));
-        tools.add(new Tool("Disable Search", "Disable Windows Search"));
-        tools.add(new Tool("Disable Sticky Keys", "Disable accessibility features"));
-        tools.add(new Tool("Disable Compatibility Service", "Disable compatibility checks"));
-        tools.add(new Tool("Network Bandwidth Optimization", "Optimize network bandwidth"));
-        tools.add(new Tool("Performance Optimization", "Optimize system performance"));
+        tools.add(new Tool("Zmiana języka systemu", "Zmień ustawienia języka systemu"));
+        tools.add(new Tool("Analizator systemu", "Przeanalizuj wydajność systemu"));
+        tools.add(new Tool("Optymalizator sieci", "Optymalizuj ustawienia sieciowe"));
+        tools.add(new Tool("Aktualizator sterowników", "Aktualizuj przestarzałe sterowniki"));
+        tools.add(new Tool("Osłona prywatności", "Zwiększ ustawienia prywatności"));
+        tools.add(new Tool("Synchronizacja czasu", "Zsynchronizuj czas systemowy"));
+        tools.add(new Tool("Zarządzanie RAID", "Zarządzaj konfiguracjami RAID"));
+        tools.add(new Tool("Niszczarka plików", "Bezpiecznie usuń pliki"));
+        tools.add(new Tool("Menedżer uruchamiania", "Zarządzaj programami startowymi"));
+        tools.add(new Tool("Czyszczenie plików tymczasowych", "Wyczyść pliki tymczasowe"));
+        tools.add(new Tool("Menedżer schowka", "Zarządzaj historią schowka"));
+        tools.add(new Tool("Szybkie połączenie VPN", "Połącz się szybko z VPN"));
+        tools.add(new Tool("Tworzenie punktu przywracania", "Utwórz punkty przywracania"));
+        tools.add(new Tool("Wyłącz przywracanie systemu", "Wyłącz funkcję przywracania systemu"));
+        tools.add(new Tool("Wyłącz znaczniki czasu NTFS", "Zoptymalizuj wydajność NTFS"));
+        tools.add(new Tool("Wyłącz wyszukiwanie Windows", "Wyłącz wyszukiwanie Windows"));
+        tools.add(new Tool("Wyłącz Sticky Keys", "Wyłącz funkcje ułatwień dostępu"));
+        tools.add(new Tool("Wyłącz usługę zgodności", "Wyłącz sprawdzanie zgodności"));
+        tools.add(new Tool("Optymalizacja pasma sieciowego", "Zoptymalizuj pasmo sieciowe"));
+        tools.add(new Tool("Optymalizacja wydajności", "Zoptymalizuj wydajność systemu"));
 
         for (Tool tool : tools) {
             VBox toolCard = createToolCard(tool);
@@ -839,7 +839,7 @@ public class HelloApplication extends Application {
         progressBox.setStyle("-fx-background-color: rgba(15, 15, 15, 0.95); -fx-background-radius: 15;");
         progressBox.setEffect(new DropShadow(20, Color.BLACK));
 
-        Text progressTitle = new Text("Optimizing System...");
+        Text progressTitle = new Text("Optymalizacja systemu...");
         progressTitle.setFill(Color.WHITE);
         progressTitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
@@ -847,7 +847,7 @@ public class HelloApplication extends Application {
         progressBar.setPrefWidth(300);
         progressBar.setStyle("-fx-accent: #8a2be2;");
 
-        Text progressText = new Text("Initializing...");
+        Text progressText = new Text("Inicjalizacja...");
         progressText.setFill(Color.WHITE);
 
         progressBox.getChildren().addAll(progressTitle, progressBar, progressText);
@@ -859,14 +859,14 @@ public class HelloApplication extends Application {
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(progressBar.progressProperty(), 0)),
-                new KeyFrame(Duration.seconds(1), e -> progressText.setText("Scanning system...")),
+                new KeyFrame(Duration.seconds(1), e -> progressText.setText("Skanowanie systemu...")),
                 new KeyFrame(Duration.seconds(2), new KeyValue(progressBar.progressProperty(), 0.3)),
-                new KeyFrame(Duration.seconds(3), e -> progressText.setText("Applying optimizations...")),
+                new KeyFrame(Duration.seconds(3), e -> progressText.setText("Stosowanie optymalizacji...")),
                 new KeyFrame(Duration.seconds(4), new KeyValue(progressBar.progressProperty(), 0.6)),
-                new KeyFrame(Duration.seconds(5), e -> progressText.setText("Finalizing changes...")),
+                new KeyFrame(Duration.seconds(5), e -> progressText.setText("Finalizowanie zmian...")),
                 new KeyFrame(Duration.seconds(6), new KeyValue(progressBar.progressProperty(), 1.0)),
                 new KeyFrame(Duration.seconds(7), e -> {
-                    progressText.setText("Optimization complete!");
+                    progressText.setText("Optymalizacja zakończona!");
                     new Timeline(new KeyFrame(Duration.seconds(1), ev -> progressStage.close())).play();
                 })
         );
@@ -901,7 +901,7 @@ public class HelloApplication extends Application {
         description.setFont(Font.font("Arial", 14));
         description.setWrappingWidth(310);
 
-        Button runBtn = new Button("Run Tool");
+        Button runBtn = new Button("Uruchom narzędzie");
         runBtn.setStyle("-fx-background-color: linear-gradient(to right, #8a2be2, #9370db); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;");
         runBtn.setMaxWidth(Double.MAX_VALUE);
         runBtn.setOnAction(e -> showToolExecution(tool.getName()));
@@ -926,7 +926,7 @@ public class HelloApplication extends Application {
         toolBox.setStyle("-fx-background-color: rgba(15, 15, 15, 0.95); -fx-background-radius: 15;");
         toolBox.setEffect(new DropShadow(20, Color.BLACK));
 
-        Text toolTitle = new Text("Executing: " + toolName);
+        Text toolTitle = new Text("Wykonywanie: " + toolName);
         toolTitle.setFill(Color.WHITE);
         toolTitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
@@ -949,18 +949,18 @@ public class HelloApplication extends Application {
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(progressBar.progressProperty(), 0)),
-                new KeyFrame(Duration.seconds(0.5), e -> console.appendText("> Initializing " + toolName + "...\n")),
+                new KeyFrame(Duration.seconds(0.5), e -> console.appendText("> Inicjalizacja " + toolName + "...\n")),
                 new KeyFrame(Duration.seconds(1), new KeyValue(progressBar.progressProperty(), 0.2)),
-                new KeyFrame(Duration.seconds(1.5), e -> console.appendText("> Checking system requirements...\n")),
+                new KeyFrame(Duration.seconds(1.5), e -> console.appendText("> Sprawdzanie wymagań systemowych...\n")),
                 new KeyFrame(Duration.seconds(2), new KeyValue(progressBar.progressProperty(), 0.4)),
-                new KeyFrame(Duration.seconds(2.5), e -> console.appendText("> Applying optimizations...\n")),
+                new KeyFrame(Duration.seconds(2.5), e -> console.appendText("> Stosowanie optymalizacji...\n")),
                 new KeyFrame(Duration.seconds(3), new KeyValue(progressBar.progressProperty(), 0.6)),
-                new KeyFrame(Duration.seconds(3.5), e -> console.appendText("> Verifying changes...\n")),
+                new KeyFrame(Duration.seconds(3.5), e -> console.appendText("> Weryfikacja zmian...\n")),
                 new KeyFrame(Duration.seconds(4), new KeyValue(progressBar.progressProperty(), 0.8)),
-                new KeyFrame(Duration.seconds(4.5), e -> console.appendText("> Finalizing...\n")),
+                new KeyFrame(Duration.seconds(4.5), e -> console.appendText("> Finalizowanie...\n")),
                 new KeyFrame(Duration.seconds(5), new KeyValue(progressBar.progressProperty(), 1.0)),
                 new KeyFrame(Duration.seconds(5.5), e -> {
-                    console.appendText("> " + toolName + " executed successfully!\n");
+                    console.appendText("> " + toolName + " wykonane pomyślnie!\n");
                     new Timeline(new KeyFrame(Duration.seconds(1), ev -> toolStage.close())).play();
                 })
         );
@@ -979,11 +979,11 @@ public class HelloApplication extends Application {
         Text windowsIcon = new Text("");
         windowsIcon.setFont(Font.font(30));
 
-        Text pageTitle = new Text("Windows Optimizer");
+        Text pageTitle = new Text("Optymalizator Windows");
         pageTitle.setFill(Color.WHITE);
         pageTitle.setFont(Font.font("Arial", FontWeight.BOLD, 26));
 
-        Button applyBtn = new Button("APPLY CHANGES");
+        Button applyBtn = new Button("ZASTOSUJ ZMIANY");
         applyBtn.setStyle("-fx-background-color: linear-gradient(to right, #8a2be2, #9370db); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 25;");
         applyBtn.setOnAction(e -> showWindowsOptimizationProgress());
 
@@ -997,34 +997,34 @@ public class HelloApplication extends Application {
         featuresPane.setPrefColumns(2);
 
         List<Feature> features = new ArrayList<>();
-        features.add(new Feature("Privacy Optimization", false));
-        features.add(new Feature("System Optimization", false));
-        features.add(new Feature("Performance Enhancement", false));
-        features.add(new Feature("Optimize SerializeTimerExpiration", false));
-        features.add(new Feature("Appearance Optimization", false));
-        features.add(new Feature("Power Optimization", false));
-        features.add(new Feature("Disable Unnecessary Features", false));
-        features.add(new Feature("Optimize NTFS for Performance", false));
-        features.add(new Feature("Disable Telemetry", false));
-        features.add(new Feature("Disable SmartScreen", false));
-        features.add(new Feature("Disable Error Reporting", false));
-        features.add(new Feature("Disable Superfetch", false));
-        features.add(new Feature("Disable Print Service", false));
-        features.add(new Feature("Disable Fax Service", false));
-        features.add(new Feature("Disable Hibernation", false));
-        features.add(new Feature("Disable HomeGroup Sharing", false));
-        features.add(new Feature("Disable SMBv1 Protocol", false));
-        features.add(new Feature("Disable SMBv2 Protocol", false));
-        features.add(new Feature("Disable Office Telemetry", false));
-        features.add(new Feature("Disable Firefox Telemetry", false));
-        features.add(new Feature("Disable Chrome Telemetry", false));
-        features.add(new Feature("Disable NVIDIA Telemetry", false));
-        features.add(new Feature("Disable Visual Studio Telemetry", false));
-        features.add(new Feature("Remove Menu Delays", false));
-        features.add(new Feature("Show All Tray Icons", false));
-        features.add(new Feature("Disable Media Player Sharing", false));
-        features.add(new Feature("Disable Application Compatibility", false));
-        features.add(new Feature("Disable Compatibility Service", false));
+        features.add(new Feature("Optymalizacja prywatności", false));
+        features.add(new Feature("Optymalizacja systemu", false));
+        features.add(new Feature("Zwiększenie wydajności", false));
+        features.add(new Feature("Optymalizacja SerializeTimerExpiration", false));
+        features.add(new Feature("Optymalizacja wyglądu", false));
+        features.add(new Feature("Optymalizacja zasilania", false));
+        features.add(new Feature("Wyłącz niepotrzebne funkcje", false));
+        features.add(new Feature("Optymalizacja NTFS", false));
+        features.add(new Feature("Wyłącz telemetrię", false));
+        features.add(new Feature("Wyłącz SmartScreen", false));
+        features.add(new Feature("Wyłącz raportowanie błędów", false));
+        features.add(new Feature("Wyłącz Superfetch", false));
+        features.add(new Feature("Wyłącz usługę drukowania", false));
+        features.add(new Feature("Wyłącz usługę faksu", false));
+        features.add(new Feature("Wyłącz hibernację", false));
+        features.add(new Feature("Wyłącz udostępnianie HomeGroup", false));
+        features.add(new Feature("Wyłącz protokół SMBv1", false));
+        features.add(new Feature("Wyłącz protokół SMBv2", false));
+        features.add(new Feature("Wyłącz telemetrię Office", false));
+        features.add(new Feature("Wyłącz telemetrię Firefox", false));
+        features.add(new Feature("Wyłącz telemetrię Chrome", false));
+        features.add(new Feature("Wyłącz telemetrię NVIDIA", false));
+        features.add(new Feature("Wyłącz telemetrię Visual Studio", false));
+        features.add(new Feature("Usuń opóźnienia menu", false));
+        features.add(new Feature("Pokaż wszystkie ikony w zasobniku", false));
+        features.add(new Feature("Wyłącz udostępnianie Media Player", false));
+        features.add(new Feature("Wyłącz zgodność aplikacji", false));
+        features.add(new Feature("Wyłącz usługę zgodności", false));
 
         for (Feature feature : features) {
             VBox featureCard = createFeatureCard(feature);
@@ -1057,7 +1057,7 @@ public class HelloApplication extends Application {
         progressBox.setStyle("-fx-background-color: rgba(15, 15, 15, 0.95); -fx-background-radius: 15;");
         progressBox.setEffect(new DropShadow(20, Color.BLACK));
 
-        Text progressTitle = new Text("Applying Windows Optimizations...");
+        Text progressTitle = new Text("Stosowanie optymalizacji Windows...");
         progressTitle.setFill(Color.WHITE);
         progressTitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
@@ -1080,23 +1080,23 @@ public class HelloApplication extends Application {
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(progressBar.progressProperty(), 0)),
-                new KeyFrame(Duration.seconds(0.5), e -> console.appendText("> Preparing system for optimizations...\n")),
+                new KeyFrame(Duration.seconds(0.5), e -> console.appendText("> Przygotowywanie systemu do optymalizacji...\n")),
                 new KeyFrame(Duration.seconds(1), new KeyValue(progressBar.progressProperty(), 0.15)),
-                new KeyFrame(Duration.seconds(1.5), e -> console.appendText("> Backing up current settings...\n")),
+                new KeyFrame(Duration.seconds(1.5), e -> console.appendText("> Tworzenie kopii zapasowej ustawień...\n")),
                 new KeyFrame(Duration.seconds(2), new KeyValue(progressBar.progressProperty(), 0.3)),
-                new KeyFrame(Duration.seconds(2.5), e -> console.appendText("> Applying privacy optimizations...\n")),
+                new KeyFrame(Duration.seconds(2.5), e -> console.appendText("> Stosowanie optymalizacji prywatności...\n")),
                 new KeyFrame(Duration.seconds(3), new KeyValue(progressBar.progressProperty(), 0.45)),
-                new KeyFrame(Duration.seconds(3.5), e -> console.appendText("> Optimizing system performance...\n")),
+                new KeyFrame(Duration.seconds(3.5), e -> console.appendText("> Optymalizacja wydajności systemu...\n")),
                 new KeyFrame(Duration.seconds(4), new KeyValue(progressBar.progressProperty(), 0.6)),
-                new KeyFrame(Duration.seconds(4.5), e -> console.appendText("> Disabling unnecessary services...\n")),
+                new KeyFrame(Duration.seconds(4.5), e -> console.appendText("> Wyłączanie niepotrzebnych usług...\n")),
                 new KeyFrame(Duration.seconds(5), new KeyValue(progressBar.progressProperty(), 0.75)),
-                new KeyFrame(Duration.seconds(5.5), e -> console.appendText("> Finalizing changes...\n")),
+                new KeyFrame(Duration.seconds(5.5), e -> console.appendText("> Finalizowanie zmian...\n")),
                 new KeyFrame(Duration.seconds(6), new KeyValue(progressBar.progressProperty(), 0.9)),
-                new KeyFrame(Duration.seconds(6.5), e -> console.appendText("> Cleaning up temporary files...\n")),
+                new KeyFrame(Duration.seconds(6.5), e -> console.appendText("> Czyszczenie plików tymczasowych...\n")),
                 new KeyFrame(Duration.seconds(7), new KeyValue(progressBar.progressProperty(), 1.0)),
                 new KeyFrame(Duration.seconds(7.5), e -> {
-                    console.appendText("> Windows optimizations applied successfully!\n");
-                    console.appendText("> Some changes may require a system restart.\n");
+                    console.appendText("> Optymalizacja Windows zakończona pomyślnie!\n");
+                    console.appendText("> Niektóre zmiany mogą wymagać restartu systemu.\n");
                     new Timeline(new KeyFrame(Duration.seconds(2), ev -> progressStage.close())).play();
                 })
         );
@@ -1139,22 +1139,22 @@ public class HelloApplication extends Application {
 
     private String getFeatureDescription(String featureName) {
         switch (featureName) {
-            case "Privacy Optimization":
-                return "Enhances privacy by disabling data collection features";
-            case "System Optimization":
-                return "Optimizes system settings for better performance";
-            case "Performance Enhancement":
-                return "Tweaks system parameters for maximum performance";
-            case "Optimize NTFS for Performance":
-                return "Adjusts NTFS settings for better file system performance";
-            case "Disable Telemetry":
-                return "Disables Windows telemetry and data collection";
-            case "Disable Superfetch":
-                return "Disables Superfetch service to reduce disk usage";
-            case "Disable Hibernation":
-                return "Disables hibernation to save disk space";
+            case "Optymalizacja prywatności":
+                return "Zwiększa prywatność poprzez wyłączenie funkcji zbierania danych";
+            case "Optymalizacja systemu":
+                return "Optymalizuje ustawienia systemu dla lepszej wydajności";
+            case "Zwiększenie wydajności":
+                return "Dostosowuje parametry systemu dla maksymalnej wydajności";
+            case "Optymalizacja NTFS":
+                return "Dostosowuje ustawienia NTFS dla lepszej wydajności systemu plików";
+            case "Wyłącz telemetrię":
+                return "Wyłącza telemetrię Windows i zbieranie danych";
+            case "Wyłącz Superfetch":
+                return "Wyłącza usługę Superfetch aby zmniejszyć użycie dysku";
+            case "Wyłącz hibernację":
+                return "Wyłącza hibernację aby zaoszczędzić miejsce na dysku";
             default:
-                return "Optimizes Windows " + featureName.replace("Disable ", "").toLowerCase();
+                return "Optymalizuje Windows " + featureName.replace("Wyłącz ", "").toLowerCase();
         }
     }
 
@@ -1172,7 +1172,7 @@ public class HelloApplication extends Application {
         statusIcon.setFont(Font.font(20));
         statusIcon.setFill(enabled ? Color.LIME : Color.RED);
 
-        Text message = new Text(featureName + " " + (enabled ? "enabled" : "disabled"));
+        Text message = new Text(featureName + " " + (enabled ? "włączona" : "wyłączona"));
         message.setFill(Color.WHITE);
         message.setFont(Font.font("Arial", 14));
 
@@ -1207,11 +1207,11 @@ public class HelloApplication extends Application {
         Text settingsIcon = new Text("");
         settingsIcon.setFont(Font.font(30));
 
-        Text pageTitle = new Text("Settings");
+        Text pageTitle = new Text("Ustawienia");
         pageTitle.setFill(Color.WHITE);
         pageTitle.setFont(Font.font("Arial", FontWeight.BOLD, 26));
 
-        Button saveBtn = new Button("SAVE SETTINGS");
+        Button saveBtn = new Button("ZAPISZ USTAWIENIA");
         saveBtn.setStyle("-fx-background-color: linear-gradient(to right, #8a2be2, #9370db); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 25;");
 
         ScaleTransition pulse = new ScaleTransition(Duration.seconds(2), saveBtn);
@@ -1231,17 +1231,17 @@ public class HelloApplication extends Application {
         settingsSection.setSpacing(25);
         settingsSection.setPrefWidth(800);
 
-        VBox notificationsGroup = createSettingsGroup("Notifications");
-        notificationsGroup.getChildren().add(createSettingItem("Scan completion alerts", true));
-        notificationsGroup.getChildren().add(createSettingItem("Security warnings", true));
-        notificationsGroup.getChildren().add(createSettingItem("Update notifications", false));
+        VBox notificationsGroup = createSettingsGroup("Powiadomienia");
+        notificationsGroup.getChildren().add(createSettingItem("Powiadomienia o zakończeniu skanowania", true));
+        notificationsGroup.getChildren().add(createSettingItem("Ostrzeżenia bezpieczeństwa", true));
+        notificationsGroup.getChildren().add(createSettingItem("Powiadomienia o aktualizacjach", false));
 
-        VBox privacyGroup = createSettingsGroup("Privacy");
-        privacyGroup.getChildren().add(createSettingItem("Anonymous usage statistics", false));
-        privacyGroup.getChildren().add(createSettingItem("Cloud backup", true));
+        VBox privacyGroup = createSettingsGroup("Prywatność");
+        privacyGroup.getChildren().add(createSettingItem("Anonimowe statystyki użycia", false));
+        privacyGroup.getChildren().add(createSettingItem("Kopia zapasowa w chmurze", true));
 
-        VBox appearanceGroup = createSettingsGroup("Appearance");
-        appearanceGroup.getChildren().add(createSettingItem("Dark mode", true));
+        VBox appearanceGroup = createSettingsGroup("Wygląd");
+        appearanceGroup.getChildren().add(createSettingItem("Tryb ciemny", true));
 
         settingsSection.getChildren().addAll(notificationsGroup, privacyGroup, appearanceGroup);
         settingsPage.getChildren().addAll(pageHeader, settingsSection);
@@ -1307,7 +1307,7 @@ public class HelloApplication extends Application {
         HBox pageHeader = new HBox();
         pageHeader.setAlignment(Pos.CENTER_LEFT);
 
-        Text pageTitle = new Text("About SA Optimizer");
+        Text pageTitle = new Text("O programie");
         pageTitle.setFill(Color.WHITE);
         pageTitle.setFont(Font.font("Arial", FontWeight.BOLD, 26));
 
@@ -1327,7 +1327,7 @@ public class HelloApplication extends Application {
         Text appLogo = new Text("");
         appLogo.setFont(Font.font(80));
 
-        Text logoText = new Text("ULTIMATE SA OPTIMIZER");
+        Text logoText = new Text("ULTIMATE OPTIMIZER");
         logoText.setStyle("-fx-fill: linear-gradient(to right, #8a2be2, #9370db, #8a2be2); -fx-font-size: 40; -fx-font-weight: bold;");
 
         AnimationTimer shimmer = new AnimationTimer() {
@@ -1354,7 +1354,7 @@ public class HelloApplication extends Application {
         aboutContent.setAlignment(Pos.TOP_CENTER);
         aboutContent.setMaxWidth(700);
 
-        Label versionLabel = new Label("Version 2.5.0");
+        Label versionLabel = new Label("Wersja 2.5.0");
         versionLabel.setStyle("-fx-background-color: rgba(138, 43, 226, 0.2); -fx-text-fill: #8a2be2; -fx-padding: 10 25; -fx-background-radius: 20; -fx-font-weight: bold; -fx-font-size: 16;");
 
         ScaleTransition pulse = new ScaleTransition(Duration.seconds(2), versionLabel);
@@ -1366,7 +1366,7 @@ public class HelloApplication extends Application {
         pulse.setCycleCount(Animation.INDEFINITE);
         pulse.play();
 
-        Text description1 = new Text("\n" + "Ultimate SA Optimizer to profesjonalne narzędzie do optymalizacji systemu, zaprojektowane w celu czyszczenia, ochrony, optymalizacji i przyspieszenia działania komputera. Dzięki zaawansowanym algorytmom i premium interfejsowi pomaga utrzymać system w szczytowej wydajności.");
+        Text description1 = new Text("\n" + "Ultimate Optimizer to profesjonalne narzędzie do optymalizacji systemu, zaprojektowane w celu czyszczenia, ochrony, optymalizacji i przyspieszenia działania komputera. Dzięki zaawansowanym algorytmom i premium interfejsowi pomaga utrzymać system w szczytowej wydajności.");
         description1.setFill(Color.gray(0.7));
         description1.setFont(Font.font("Arial", 16));
         description1.setTextAlignment(TextAlignment.CENTER);
@@ -1378,7 +1378,7 @@ public class HelloApplication extends Application {
         description2.setTextAlignment(TextAlignment.CENTER);
         description2.setWrappingWidth(700);
 
-        Button discordBtn = new Button("Join our Discord");
+        Button discordBtn = new Button("Dołącz do Discorda");
         discordBtn.setStyle("-fx-background-color: #5865F2; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 30; -fx-font-size: 16;");
         discordBtn.setEffect(new DropShadow(10, Color.rgb(88, 101, 242, 0.5)));
 
