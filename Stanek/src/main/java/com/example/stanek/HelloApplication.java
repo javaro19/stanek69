@@ -684,20 +684,26 @@ public class HelloApplication extends Application {
 
         List<KeyFrame> keyFrames = new ArrayList<>();
         keyFrames.add(new KeyFrame(Duration.seconds(0.5),
-                e -> consoleOutput.appendText("> Skanowanie plików tymczasowych w %TEMP%...\n"),
-                new KeyValue(cleanupProgressBar.progressProperty(), 0.1)
+                e -> {
+                    consoleOutput.appendText("> Czyszczenie folderu %TEMP%...\n");
+                    cleanTempFolder(consoleOutput);
+                },
+                new KeyValue(cleanupProgressBar.progressProperty(), 0.2)
         ));
         keyFrames.add(new KeyFrame(Duration.seconds(1),
-                e -> consoleOutput.appendText("> Znaleziono podejrzane pliki... Rozpoczynanie głębokiego czyszczenia...\n"),
-                new KeyValue(cleanupProgressBar.progressProperty(), 0.3)
+                e -> {
+                    consoleOutput.appendText("> Czyszczenie kosza...\n");
+                    emptyRecycleBin(consoleOutput);
+                },
+                new KeyValue(cleanupProgressBar.progressProperty(), 0.4)
         ));
         keyFrames.add(new KeyFrame(Duration.seconds(1.5),
                 e -> consoleOutput.appendText("> Usuwanie cache i pozostałości...\n"),
-                new KeyValue(cleanupProgressBar.progressProperty(), 0.5)
+                new KeyValue(cleanupProgressBar.progressProperty(), 0.6)
         ));
         keyFrames.add(new KeyFrame(Duration.seconds(2),
                 e -> consoleOutput.appendText("> Dostęp do kosza...\n"),
-                new KeyValue(cleanupProgressBar.progressProperty(), 0.65)
+                new KeyValue(cleanupProgressBar.progressProperty(), 0.7)
         ));
         keyFrames.add(new KeyFrame(Duration.seconds(2.5),
                 e -> consoleOutput.appendText("> Czyszczenie ukrytej pamięci...\n"),
@@ -736,12 +742,65 @@ public class HelloApplication extends Application {
         hackAnimationTimeline.play();
     }
 
-    private void emptyRecycleBin(File recycleBin, TextArea consoleOutput) {
+    private void cleanTempFolder(TextArea consoleOutput) {
+        try {
+            java.nio.file.Path tempPath = Paths.get(System.getenv("TEMP"));
+            int deletedFiles = 0;
+            int failedFiles = 0;
+
+            try (DirectoryStream<java.nio.file.Path> stream = Files.newDirectoryStream(tempPath)) {
+                for (java.nio.file.Path file : stream) {
+                    try {
+                        if (Files.isRegularFile(file)) {
+                            Files.delete(file);
+                            deletedFiles++;
+                        } else if (Files.isDirectory(file)) {
+                            deleteDirectory(file.toFile());
+                            deletedFiles++;
+                        }
+                    } catch (IOException e) {
+                        failedFiles++;
+                        consoleOutput.appendText("    Nie można usunąć: " + file.getFileName() + "\n");
+                    }
+                }
+            }
+            consoleOutput.appendText(String.format("  Usunięto %d plików, nie udało się usunąć %d\n", deletedFiles, failedFiles));
+        } catch (Exception e) {
+            consoleOutput.appendText("  Błąd podczas czyszczenia folderu TEMP: " + e.getMessage() + "\n");
+        }
+    }
+
+    private void deleteDirectory(File directory) {
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteDirectory(file);
+                } else {
+                    file.delete();
+                }
+            }
+        }
+        directory.delete();
+    }
+
+    private void emptyRecycleBin(TextArea consoleOutput) {
+        File[] roots = File.listRoots();
+        for (File root : roots) {
+            File recycleBin = new File(root, "$Recycle.Bin");
+            if (recycleBin.exists() && recycleBin.canRead()) {
+                emptyRecycleBinFolder(recycleBin, consoleOutput);
+            }
+        }
+        consoleOutput.appendText("  Kosz został wyczyszczony\n");
+    }
+
+    private void emptyRecycleBinFolder(File recycleBin, TextArea consoleOutput) {
         File[] files = recycleBin.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory() && !file.getName().equals(".") && !file.getName().equals("..")) {
-                    emptyRecycleBin(file, consoleOutput);
+                    emptyRecycleBinFolder(file, consoleOutput);
                 } else {
                     try {
                         if (file.delete()) {
