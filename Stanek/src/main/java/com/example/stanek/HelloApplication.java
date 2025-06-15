@@ -2,6 +2,7 @@ package com.example.stanek;
 
 import javafx.animation.*;
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,8 +25,10 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -51,14 +54,17 @@ public class HelloApplication extends Application {
     private Timeline backgroundTimeline;
     private VBox loginPage;
     private Map<String, String> userCredentials = new HashMap<>();
+    private Map<String, String> userUuids = new HashMap<>();
     private String currentUser;
     private Stage primaryStage;
     private Text timeLabel;
+    private HostServices hostServices;
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        initializeCredentials();
+        this.hostServices = getHostServices();
+        initializeCredentialsAndUuids();
 
         root = new StackPane();
         root.setStyle("-fx-background-color: linear-gradient(to bottom right, #0f0c29, #302b63, #24243e);");
@@ -89,10 +95,31 @@ public class HelloApplication extends Application {
         primaryStage.show();
     }
 
-    private void initializeCredentials() {
+    private void initializeCredentialsAndUuids() {
         userCredentials.put("admin", "haslo123");
-        userCredentials.put("user1", "haslo1");
-        userCredentials.put("user2", "haslo2");
+        userUuids.put("admin", "ABCD-1234-EFGH-5678");
+
+        userCredentials.put("javarek", "javaro");
+        userUuids.put("javarek", "EE884A80-C4B8-11EE-A066-7DF9F0D04A00");
+
+        userCredentials.put("stanek", "szefu");
+        userUuids.put("stanek", "5AF70288-87C8-9119-A22A-D8BBC1A3CC60");
+    }
+
+    private String getComputerUuid() {
+        try {
+            Process process = Runtime.getRuntime().exec("wmic csproduct get uuid");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.trim().length() > 0 && !line.contains("UUID")) {
+                    return line.trim();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private VBox createLoginPage() {
@@ -149,9 +176,17 @@ public class HelloApplication extends Application {
             String password = passwordField.getText();
 
             if (userCredentials.containsKey(username) && userCredentials.get(username).equals(password)) {
-                currentUser = username;
-                errorLabel.setText("");
-                initializeMainApplication();
+                String currentUuid = getComputerUuid();
+                String allowedUuid = userUuids.get(username);
+
+                if (currentUuid != null && currentUuid.equals(allowedUuid)) {
+                    currentUser = username;
+                    errorLabel.setText("");
+                    initializeMainApplication();
+                } else {
+                    errorLabel.setText("Logowanie możliwe tylko z autoryzowanego komputera");
+                    shakeAnimation(loginBox);
+                }
             } else {
                 errorLabel.setText("Nieprawidłowa nazwa użytkownika lub hasło");
                 shakeAnimation(loginBox);
@@ -425,7 +460,7 @@ public class HelloApplication extends Application {
         Button optimizerBtn = createNavButton("Optymalizacja");
         optimizerBtn.setOnAction(e -> showPage(optimizerPage));
 
-        Button windowsBtn = createNavButton("Windows");
+        Button windowsBtn = createNavButton("Uniwersalne");
         windowsBtn.setOnAction(e -> showPage(windowsPage));
 
         Button settingsBtn = createNavButton("Ustawienia");
@@ -558,7 +593,7 @@ public class HelloApplication extends Application {
         Text cleanerIcon = new Text("");
         cleanerIcon.setFont(Font.font(30));
 
-        Text pageTitle = new Text("Systemowy Czyszczak PRO");
+        Text pageTitle = new Text("Systemowy Cleaner");
         pageTitle.setFill(Color.LIME);
         pageTitle.setFont(Font.font("Consolas", FontWeight.BOLD, 26));
 
@@ -638,7 +673,7 @@ public class HelloApplication extends Application {
                 }
                 consoleOutput.appendText(String.format("  Znaleziono %d elementów w koszu\n", recycleBinCount));
             } catch (Exception e) {
-                consoleOutput.appendText("  Nie można zeskanować kosza: " + e.getMessage() + "\n");
+                consoleOutput.appendText("  Nie można zeskanować kosza: " + e.getMessage() + " Javaruś :)\n");
             }
 
             consoleOutput.appendText("\nSKANOWANIE ZAKOŃCZONE: Znaleziono pliki do usunięcia\n");
@@ -1453,6 +1488,19 @@ public class HelloApplication extends Application {
             st.setToX(1.0);
             st.setToY(1.0);
             st.play();
+        });
+
+        discordBtn.setOnAction(e -> {
+            try {
+                hostServices.showDocument("https://discord.gg/sastore");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Błąd");
+                alert.setHeaderText("Nie można otworzyć przeglądarki");
+                alert.setContentText("Nie udało się otworzyć strony");
+                alert.showAndWait();
+            }
         });
 
         aboutContent.getChildren().addAll(versionLabel, description1, description2, discordBtn);

@@ -36,7 +36,7 @@
 
     <build>
         <plugins>
-            <!-- Kompilacja -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -46,7 +46,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Budowanie FAT JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -57,7 +56,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.example.stanek.HelloApplication</mainClass> <!-- <- ZMIEŃ TYLKO jeśli masz inną klasę main -->
+                            <mainClass>com.example.stanek.HelloApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
