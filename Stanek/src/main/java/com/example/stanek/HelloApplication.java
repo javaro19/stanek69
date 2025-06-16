@@ -4,6 +4,8 @@ import javafx.animation.*;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -27,6 +29,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.DirectoryStream;
@@ -59,6 +63,7 @@ public class HelloApplication extends Application {
     private Stage primaryStage;
     private Text timeLabel;
     private HostServices hostServices;
+    private boolean darkMode = true;
 
     @Override
     public void start(Stage primaryStage) {
@@ -67,7 +72,7 @@ public class HelloApplication extends Application {
         initializeCredentialsAndUuids();
 
         root = new StackPane();
-        root.setStyle("-fx-background-color: linear-gradient(to bottom right, #0f0c29, #302b63, #24243e);");
+        applyTheme();
 
         createBackgroundEffects();
 
@@ -95,15 +100,38 @@ public class HelloApplication extends Application {
         primaryStage.show();
     }
 
+    private void applyTheme() {
+        if (darkMode) {
+            root.setStyle("-fx-background-color: linear-gradient(to bottom right, #0f0c29, #302b63, #24243e);");
+        } else {
+            root.setStyle("-fx-background-color: linear-gradient(to bottom right, #f5f7fa, #e4e8f0, #d9dde5);");
+        }
+    }
+
     private void initializeCredentialsAndUuids() {
-        userCredentials.put("admin", "haslo123");
-        userUuids.put("admin", "ABCD-1234-EFGH-5678");
+        File file = new File("bin.txt");
+        if (!file.exists()) {
+            try (FileWriter writer = new FileWriter(file)) {
+                writer.write("admin,haslo123,ABCD-1234-EFGH-5678\n");
+                writer.write("javarek,javaro,EE884A80-C4B8-11EE-A066-7DF9F0D04A00\n");
+                writer.write("stanek,szefu,5AF70288-87C8-9119-A22A-D8BBC1A3CC60\n");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-        userCredentials.put("javarek", "javaro");
-        userUuids.put("javarek", "EE884A80-C4B8-11EE-A066-7DF9F0D04A00");
-
-        userCredentials.put("stanek", "szefu");
-        userUuids.put("stanek", "5AF70288-87C8-9119-A22A-D8BBC1A3CC60");
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    userCredentials.put(parts[0], parts[1]);
+                    userUuids.put(parts[0], parts[2]);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private String getComputerUuid() {
@@ -319,8 +347,16 @@ public class HelloApplication extends Application {
             public void handle(long now) {
                 if (startTime == 0) startTime = now;
                 double progress = (now - startTime) % 10_000_000_000L / 10_000_000_000.0;
-                String gradient = String.format("-fx-background-color: linear-gradient(to bottom right, #0f0c29, #%02x2b63, #24243e);",
-                        (int)(0x30 + 0x10 * Math.sin(progress * 2 * Math.PI)));
+                String gradient;
+                if (darkMode) {
+                    gradient = String.format("-fx-background-color: linear-gradient(to bottom right, #0f0c29, #%02x2b63, #24243e);",
+                            (int)(0x30 + 0x10 * Math.sin(progress * 2 * Math.PI)));
+                } else {
+                    gradient = String.format("-fx-background-color: linear-gradient(to bottom right, #f5f7fa, #%02x%02x%02x, #d9dde5);",
+                            (int)(0xe4 + 0x10 * Math.sin(progress * 2 * Math.PI)),
+                            (int)(0xe8 + 0x10 * Math.cos(progress * 2 * Math.PI)),
+                            (int)(0xf0 + 0x10 * Math.sin(progress * 2 * Math.PI)));
+                }
                 root.setStyle(gradient);
             }
         };
@@ -1335,7 +1371,13 @@ public class HelloApplication extends Application {
         privacyGroup.getChildren().add(createSettingItem("Kopia zapasowa w chmurze", true));
 
         VBox appearanceGroup = createSettingsGroup("Wygląd");
-        appearanceGroup.getChildren().add(createSettingItem("Tryb ciemny", true));
+        ToggleSwitch darkModeSwitch = new ToggleSwitch();
+        darkModeSwitch.setSelected(darkMode);
+        darkModeSwitch.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            darkMode = newVal;
+            applyTheme();
+        });
+        appearanceGroup.getChildren().add(createSettingItemWithCustomToggle("Tryb ciemny", darkModeSwitch));
 
         settingsSection.getChildren().addAll(notificationsGroup, privacyGroup, appearanceGroup);
         settingsPage.getChildren().addAll(pageHeader, settingsSection);
@@ -1346,6 +1388,22 @@ public class HelloApplication extends Application {
         pageFade.play();
 
         return settingsPage;
+    }
+
+    private HBox createSettingItemWithCustomToggle(String label, ToggleSwitch toggleSwitch) {
+        HBox settingItem = new HBox();
+        settingItem.setAlignment(Pos.CENTER_LEFT);
+        settingItem.setSpacing(20);
+        settingItem.setPadding(new Insets(15, 0, 15, 0));
+        settingItem.setStyle("-fx-border-color: rgba(45, 45, 45, 0.5); -fx-border-width: 0 0 1 0;");
+
+        Text settingLabel = new Text(label);
+        settingLabel.setFill(Color.WHITE);
+        settingLabel.setFont(Font.font("Arial", 16));
+
+        HBox.setHgrow(settingLabel, Priority.ALWAYS);
+        settingItem.getChildren().addAll(settingLabel, toggleSwitch);
+        return settingItem;
     }
 
     private VBox createSettingsGroup(String title) {
@@ -1541,9 +1599,11 @@ public class HelloApplication extends Application {
 class ToggleSwitch extends StackPane {
     private final Rectangle background = new Rectangle(70, 34);
     private final Circle trigger = new Circle(14);
-    private boolean selected;
+    private final BooleanProperty selected;
 
     public ToggleSwitch() {
+        selected = new SimpleBooleanProperty(false);
+
         background.setArcWidth(34);
         background.setArcHeight(34);
         background.setFill(Color.rgb(61, 61, 61));
@@ -1557,7 +1617,7 @@ class ToggleSwitch extends StackPane {
         getChildren().addAll(background, trigger);
 
         setOnMouseClicked(e -> {
-            selected = !selected;
+            selected.set(!selected.get());
             updateUI();
         });
 
@@ -1579,16 +1639,20 @@ class ToggleSwitch extends StackPane {
     }
 
     public boolean isSelected() {
-        return selected;
+        return selected.get();
     }
 
     public void setSelected(boolean selected) {
-        this.selected = selected;
+        this.selected.set(selected);
         updateUI();
     }
 
+    public BooleanProperty selectedProperty() {
+        return selected;
+    }
+
     private void updateUI() {
-        if (selected) {
+        if (selected.get()) {
             background.setFill(Color.rgb(138, 43, 226));
             TranslateTransition tt = new TranslateTransition(Duration.millis(200), trigger);
             tt.setToX(17);
